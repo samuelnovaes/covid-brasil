@@ -25,10 +25,10 @@ const getData = async () => {
 	message += `*Novos casos:* ${newCases}\n`;
 	message += `*Total de mortes:* ${totalDeaths}\n`;
 	message += `*Novas mortes:* ${newDeaths}\n`;
-	message += `*Casos recuperados:* ${totalRecovered}\n`
-	message += `*Casos ativos:* ${activeCases}\n`
-	message += `*Casos graves:* ${serious}\n`
-	
+	message += `*Casos recuperados:* ${totalRecovered}\n`;
+	message += `*Casos ativos:* ${activeCases}\n`;
+	message += `*Casos graves:* ${serious}\n`;
+
 	return {
 		message,
 		totalCases,
@@ -39,7 +39,7 @@ const getData = async () => {
 		activeCases,
 		serious
 	};
-}
+};
 
 bot.launch().then(() => {
 	console.log('Bot rodando');
