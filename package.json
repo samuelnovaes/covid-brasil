@@ -1,0 +1,23 @@
+{
+	"name": "covid-brasil",
+	"version": "1.0.0",
+	"main": "index.js",
+	"scripts": {
+		"start": "node index.js",
+		"dev": "nodemon --inspect index.js"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"description": "",
+	"dependencies": {
+		"axios": "^0.19.2",
+		"cheerio": "^1.0.0-rc.3",
+		"dotenv": "^8.2.0",
+		"moment-timezone": "^0.5.28",
+		"telegraf": "^3.38.0"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.3"
+	}
+}
