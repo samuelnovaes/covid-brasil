@@ -18,6 +18,7 @@ const getData = async () => {
 	const totalRecovered = $(columns[5]).text().replace(/[^\d]/g, '');
 	const activeCases = $(columns[6]).text().replace(/[^\d]/g, '');
 	const serious = $(columns[7]).text().replace(/[^\d]/g, '');
+
 	let message = '';
 	message += `*Data:* ${moment().format('DD/MM/YYYY HH:mm')}\n`;
 	message += `*Total de casos:* ${totalCases}\n`;
@@ -27,6 +28,7 @@ const getData = async () => {
 	message += `*Casos recuperados:* ${totalRecovered}\n`
 	message += `*Casos ativos:* ${activeCases}\n`
 	message += `*Casos graves:* ${serious}\n`
+	
 	return {
 		message,
 		totalCases,
