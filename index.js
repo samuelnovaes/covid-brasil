@@ -36,6 +36,10 @@ const getData = async () => {
 	};
 };
 
+bot.start((ctx) => {
+	ctx.reply('Utilize o comando /covid para obter os números do COVID-19 no Brasil.');
+});
+
 bot.command('covid', async (ctx) => {
 	try {
 		const data = await getData();
