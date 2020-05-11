@@ -2,7 +2,7 @@ require('dotenv').config();
 const { Telegraf } = require('telegraf');
 const axios = require('axios');
 const cheerio = require('cheerio');
-const moment = require('moment');
+const moment = require('moment-timezone');
 
 const bot = new Telegraf(process.env.TOKEN);
 let result = {};
@@ -20,7 +20,7 @@ const getData = async () => {
 	const serious = $(columns[7]).text().replace(/[^\d]/g, '');
 
 	let message = '';
-	message += `*Data:* ${moment().format('DD/MM/YYYY HH:mm')}\n`;
+	message += `*Data:* ${moment().tz('America/Sao_Paulo').format('DD/MM/YYYY HH:mm')}\n`;
 	message += `*Total de casos:* ${totalCases}\n`;
 	message += `*Novos casos:* ${newCases}\n`;
 	message += `*Total de mortes:* ${totalDeaths}\n`;
