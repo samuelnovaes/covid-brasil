@@ -32,14 +32,19 @@ const getData = async () => {
 	return {
 		message,
 		totalCases,
-		newCases,
-		totalDeaths,
-		newDeaths,
-		totalRecovered,
-		activeCases,
-		serious
+		totalDeaths
 	};
 };
+
+bot.command('covid', async (ctx) => {
+	try {
+		const data = await getData();
+		ctx.reply(data.message, { parse_mode: 'Markdown' });
+	}
+	catch (err) {
+		ctx.reply(err.message);
+	}
+});
 
 bot.launch().then(() => {
 	console.log('Bot rodando');
