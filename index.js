@@ -3,6 +3,8 @@ const { Telegraf } = require('telegraf');
 const axios = require('axios');
 const cheerio = require('cheerio');
 const moment = require('moment-timezone');
+const fs = require('fs-extra');
+const path = require('path');
 
 const bot = new Telegraf(process.env.TOKEN);
 let result = {};
@@ -54,8 +56,9 @@ bot.command('covid', async (ctx) => {
 	}
 });
 
-bot.launch().then(() => {
-	console.log('Bot rodando');
+bot.launch().then(async () => {
+  await fs.ensureDir(path.join(__dirname, 'data.json'));
+  console.log('Bot rodando');
 	setInterval(async () => {
 		try {
 			const data = await getData();
