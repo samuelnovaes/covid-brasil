@@ -12,13 +12,13 @@ const getData = async () => {
 	const { data } = await axios.get('https://www.worldometers.info/coronavirus/');
 	const $ = cheerio.load(data);
 	const columns = $($('td:contains("Brazil")')[0].parent).find('td');
-	const totalCases = $(columns[1]).text().replace(/[^\d]/g, '');
-	const newCases = $(columns[2]).text().replace(/[^\d]/g, '');
-	const totalDeaths = $(columns[3]).text().replace(/[^\d]/g, '');
-	const newDeaths = $(columns[4]).text().replace(/[^\d]/g, '');
-	const totalRecovered = $(columns[5]).text().replace(/[^\d]/g, '');
-	const activeCases = $(columns[6]).text().replace(/[^\d]/g, '');
-	const serious = $(columns[7]).text().replace(/[^\d]/g, '');
+	const totalCases = $(columns[1]).text().trim() || 0;
+	const newCases = $(columns[2]).text().trim() || 0;
+	const totalDeaths = $(columns[3]).text().trim() || 0;
+	const newDeaths = $(columns[4]).text().trim() || 0;
+	const totalRecovered = $(columns[5]).text().trim() || 0;
+	const activeCases = $(columns[6]).text().trim() || 0
+	const serious = $(columns[7]).text().trim() || 0;
 
 	let message = '';
 	message += `*Data:* ${moment().tz('America/Sao_Paulo').format('DD/MM/YYYY HH:mm')}\n`;
@@ -64,6 +64,7 @@ bot.launch().then(async () => {
 			const data = await getData();
       const result = JSON.parse((await fs.readFile(dataFile), 'utf-8') || '{}');
 			if (data.totalCases != result.totalCases || data.totalDeaths != result.totalDeaths) {
+        console.log(data);
 				bot.telegram.sendMessage('@covid_brasil', data.message, { parse_mode: 'Markdown' });
 				await fs.writeFile(dataFile, JSON.stringify(data));
 			}
