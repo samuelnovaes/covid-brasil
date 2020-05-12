@@ -62,9 +62,8 @@ bot.launch().then(async () => {
 	setInterval(async () => {
 		try {
 			const data = await getData();
-      const result = JSON.parse((await fs.readFile(dataFile), 'utf-8') || '{}');
+      const result = JSON.parse((await fs.readFile(dataFile, 'utf-8')) || '{}');
 			if (data.totalCases != result.totalCases || data.totalDeaths != result.totalDeaths) {
-        console.log(data);
 				bot.telegram.sendMessage('@covid_brasil', data.message, { parse_mode: 'Markdown' });
 				await fs.writeFile(dataFile, JSON.stringify(data));
 			}
@@ -72,5 +71,5 @@ bot.launch().then(async () => {
 		catch (err) {
 			bot.telegram.sendMessage('@covid_brasil', err.message);
 		}
-	}, 300000);
+	}, 3000);
 });
