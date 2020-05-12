@@ -71,5 +71,5 @@ bot.launch().then(async () => {
 		catch (err) {
 			bot.telegram.sendMessage('@covid_brasil', err.message);
 		}
-	}, 3000);
+	}, 300000);
 });
