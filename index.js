@@ -7,7 +7,6 @@ const fs = require('fs-extra');
 const path = require('path');
 
 const bot = new Telegraf(process.env.TOKEN);
-let result = {};
 
 const getData = async () => {
 	const { data } = await axios.get('https://www.worldometers.info/coronavirus/');
@@ -57,14 +56,16 @@ bot.command('covid', async (ctx) => {
 });
 
 bot.launch().then(async () => {
-  await fs.ensureDir(path.join(__dirname, 'data.json'));
+  const dataFile = path.join(__dirname, 'data.json');
+  await fs.ensureFile(dataFile);
   console.log('Bot rodando');
 	setInterval(async () => {
 		try {
 			const data = await getData();
+      const result = JSON.parse((await fs.readFile(dataFile), 'utf-8') || '{}');
 			if (data.totalCases != result.totalCases || data.totalDeaths != result.totalDeaths) {
 				bot.telegram.sendMessage('@covid_brasil', data.message, { parse_mode: 'Markdown' });
-				result = data;
+				await fs.writeFile(dataFile, JSON.stringify(data));
 			}
 		}
 		catch (err) {
